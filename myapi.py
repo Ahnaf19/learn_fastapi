@@ -36,6 +36,8 @@ def index():
 
 @app.get('/get-student/{student_id}')
 def get_student(student_id: int = Path(description="The ID of the student you want to view", gt=0, lt=3)):
+    if student_id not in students:
+        return {"Error": "Student does not exist"}
     return students[student_id]
 # * commonly: 
 # gt = greater than
