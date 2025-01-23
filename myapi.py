@@ -56,7 +56,7 @@ def test_query_param(limit: int = 10, test: int = 0):
     return {"data": f"test query param {limit} and test {test}"}
 
 @app.get('/get-by-name')
-def get_student(*, name: Optional[str] = Query(None, description="The name of the student you want to view"), test: int):
+def get_student_by_name(*, name: Optional[str] = Query(None, description="The name of the student you want to view"), test: int):
     for student_id in students:
         if students[student_id]["name"] == name:
             return students[student_id]

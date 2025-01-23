@@ -1,1 +1,3 @@
-bitfumes/
+__pycache__/
+tests/__pycache__/
+learn_fastapi/__pycache__/
