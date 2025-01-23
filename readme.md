@@ -63,6 +63,14 @@ This repo definitely doesn't cover all features of fastapi but contains **go to 
    - uuid
      - UUID and uuid4 (generate unique id)
 
+9. ## **test fastapi**
+
+   - add `__init__.py` in the repo root --> addresses import issues
+   - create `tests/` folder to contain all test files
+   - add `__init__.py` in the `tests/` folder as well --> pytest can easily detect test files
+   - pytest using `fastapi.TestClient`
+     - follow `test_myapi.py`
+
 # Yet to be added
 
 - Multifile app route code
