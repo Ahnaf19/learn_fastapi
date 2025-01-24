@@ -9,7 +9,6 @@ from pydantic import BaseModel
 app = FastAPI()
 
 # local database for testing
-# good practice would be to use a real database/object storage
 students: dict[int, dict[str, str|int]] = {
     1: {
         "name": "John",
