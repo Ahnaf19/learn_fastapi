@@ -1,0 +1,43 @@
+# name of the workflow: will be displayed in the Actions tab of the repository
+name: Hello world workflow
+# on: specifies the events that trigger the workflow
+on:
+  # event 1: on each push
+  push:
+    # filter: only trigger when pushed to main branch
+    branches:
+      - main
+  # event 2: on each pull request
+  pull_request:
+    # filter: only trigger when PR is opened or synchronized to main branch
+    branches:
+      - main
+  # event 3: on manual trigger: displayed in the Actions tab of the repository
+  workflow_dispatch:
+
+# jobs: a list of jobs that run in parallel
+jobs:
+  # job 1 name: hello_job
+  hello_job:
+    # runs-on: specifies the runner for the job
+    runs-on: ubuntu-latest
+    # steps: a list of steps that run in sequence. each step is separated by '-'
+    steps:
+      # step 1 name: checkout: uses the actions/checkout action to checkout the repository
+      - uses: actions/checkout@v2 # add prebuilt action here when needed
+        name: Checkout repository
+      # step 2 name: Hello world step: prints "Hello world"
+      - name: Hello world step # name of the step [optional]
+        run: echo "Hello world" # run command directly
+        shell: bash
+
+  # job 2 name: goodbye_job
+  goodbye_job:
+    # runs-on: specifies the runner for the job
+    runs-on: ubuntu-latest
+    # steps: a list of steps that run in sequence. each step is separated by '-'
+    steps:
+      # step 1 name: Goodbye world step: prints "Goodbye world"
+      - name: Goodbye world step # name of the step [optional]
+        run: echo "Goodbye world" # run command directly
+        shell: bash
