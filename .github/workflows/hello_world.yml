@@ -24,7 +24,7 @@ jobs:
     # steps: a list of steps that run in sequence. each step is separated by '-'
     steps:
       # step 1 name: checkout: uses the actions/checkout action to checkout the repository
-      - uses: actions/checkout@v2 # add prebuilt action here when needed
+      - uses: actions/checkout@v2 # add prebuilt action here when needed in user/repo@[version|commit|branch] format
         name: Checkout repository
       # step 2 name: Hello world step: prints "Hello world"
       - name: Hello world step # name of the step [optional]
