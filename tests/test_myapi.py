@@ -9,8 +9,8 @@ def test_index():
     response = client.get('/')
     assert response.status_code == 200
     assert response.json() == {
-    # "1": {
-    1: {
+    "1": {
+    # 1: {
         "name": "John",
         "age": 17,
         "class_name": "year 12"
