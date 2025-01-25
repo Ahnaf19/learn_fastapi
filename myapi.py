@@ -9,6 +9,7 @@ from pydantic import BaseModel
 app = FastAPI()
 
 # local database for testing
+# add comment 1
 students: dict[int, dict[str, str|int]] = {
     1: {
         "name": "John",
