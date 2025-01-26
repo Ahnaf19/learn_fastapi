@@ -1,9 +1,9 @@
 name: Run Tests on myapi.py Changes
 
 on:
-  push:
-    paths:
-      - "myapi.py"
+  # push:
+  #   paths:
+  #     - "myapi.py"
   pull_request:
     paths:
       - "myapi.py"
