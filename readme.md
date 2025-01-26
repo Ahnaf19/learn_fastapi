@@ -10,19 +10,28 @@ This repo definitely doesn't cover all features of fastapi but contains **go to 
 
    The <a href="https://fastapi.tiangolo.com/learn/">official fastapi documentation</a> is the best. Solely following it step by step would be enough for anyone. Really, just try it.
 
-2. **Installation**:
+   1.1. **Concurrency + Parallelism: Web + Machine Learning **
+
+   Read and summarized from <a href="https://fastapi.tiangolo.com/async/">fastapi async</a>:
+   
+   - `concurrency`: The ability to manage multiple tasks at the same time by quickly switching between them. In FastAPI, this is achieved using asynchronous programming (`async/await`), enabling efficient handling of I/O-bound operations like database queries or API calls without blocking the main thread.
+   - `parallelism`: Running multiple tasks simultaneously on different CPU cores. In Python, libraries like multiprocessing or frameworks like FastAPI with workers (e.g., using `gunicorn` with multiple workers) enable parallel execution, which is particularly useful for `CPU-bound` tasks.
+      `multiprocessing`: A technique to create separate processes (not threads) to run tasks in parallel, utilizing multiple CPU cores. This is effective for `CPU-bound` tasks in Python, bypassing the Global Interpreter Lock (`GIL`). For FastAPI, multiprocessing can help with heavy computation tasks by delegating them to worker processes.
+   - `CPU bound`: A type of task that is limited by the speed of the CPU, such as mathematical computations or data processing. In FastAPI, CPU-bound tasks are better handled using multiprocessing or external workers (e.g., `celery` or `background tasks`) to prevent slowing down the main application thread.
+
+3. **Installation**:
 
    Need to install `fastapi` library and also need `uvicorn` to run local server. For data validation, `pydantic` is superb which comes preinstalled with fastapi.
 
    - `pip install fastapi uvicorn`
 
-3. **Folder Structure**
+4. **Folder Structure**
 
    (not dived much into it yet)
 
    Depending on the project, it might be a good idea to have separate files for routing, database connection, models and schemas.
 
-4. **Basics**:
+5. **Basics**:
 
    - learn how to initiate fastapi application
    - api endpoints or routers
@@ -33,25 +42,25 @@ This repo definitely doesn't cover all features of fastapi but contains **go to 
    - request body
    - response model
 
-5. **Run Uvicorn Server**:
+6. **Run Uvicorn Server**:
 
    - command to run the app through uvicorn: `uvicorn myapi:app --reload`
      - `myapi` is the name of the py file
      - `app` is the name of the instance of FASTAPI class
      - `reload` flag enables auto reload when changed and saved
 
-6. **Auto Generated API Docs**:
+7. **Auto Generated API Docs**:
 
    - learn the most awesome thing of fastapi, the auto generated api documentation
      - swagger UI
      - docly
 
-7. **CRUD**:
+8. **CRUD**:
 
    - dive into the depth of CRUD with GET, POST, PUT, DELETE
    - How to validate data with pydantic models
 
-8. ## **Useful Libraries/approaches/validations**:
+9. ## **Useful Libraries/approaches/validations**:
 
    - fastapi
      - HTTPException (raising HTTP exception/error)
@@ -63,7 +72,7 @@ This repo definitely doesn't cover all features of fastapi but contains **go to 
    - uuid
      - UUID and uuid4 (generate unique id)
 
-9. ## **test fastapi**
+10. ## **test fastapi**
 
    - add `__init__.py` in the repo root --> addresses import issues
    - create `tests/` folder to contain all test files
