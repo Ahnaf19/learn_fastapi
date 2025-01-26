@@ -10,6 +10,7 @@ app = FastAPI()
 
 # local database for testing
 # add comment 1
+# add commment 2
 students: dict[int, dict[str, str|int]] = {
     1: {
         "name": "John",
