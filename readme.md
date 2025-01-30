@@ -10,7 +10,7 @@ This repo definitely doesn't cover all features of fastapi but contains **go to 
 
    The <a href="https://fastapi.tiangolo.com/learn/">official fastapi documentation</a> is the best. Solely following it step by step would be enough for anyone. Really, just try it.
 
-   1.1. **Concurrency + Parallelism: Web + Machine Learning **
+   1.1. **Concurrency + Parallelism ==> Web + Machine Learning **
 
    Read and summarized from <a href="https://fastapi.tiangolo.com/async/">fastapi async</a>:
    
@@ -29,11 +29,11 @@ This repo definitely doesn't cover all features of fastapi but contains **go to 
 
    (not dived much into it yet)
 
-   Depending on the project, it might be a good idea to have separate files for routing, database connection, models and schemas.
+   Depending on the project, it might be a good idea to have separate files for routing, database connection, models and schemas. Its been thoroughly implemented in the <a href="https://github.com/Ahnaf19/hotel_transylvania">**Hotel Transylvania**</a> repo!
 
 5. **Basics**:
 
-   - learn how to initiate fastapi application
+   - learn how to initiate `fastapi` application
    - api endpoints or routers
    - CRUD with GET, POST, PUT, DELETE
    - Data validation with pydantic
@@ -61,19 +61,19 @@ This repo definitely doesn't cover all features of fastapi but contains **go to 
    - dive into the depth of CRUD with GET, POST, PUT, DELETE
    - How to validate data with pydantic models
 
-9. ## **Useful Libraries/approaches/validations**:
+9. **Useful Libraries/approaches/validations**:
 
-   - fastapi
+   - `fastapi`
      - HTTPException (raising HTTP exception/error)
-   - pydantic
+   - `pydantic`
      - `basemodel`
      - `EmailStr`
      - `validator` (decorator for custom validation)
      - json serialization [`.json()` to json, `.model_dump()` to dict, `.parse_raw()` to pydantic]
-   - uuid
+   - `uuid`
      - UUID and uuid4 (generate unique id)
 
-10. ## **test fastapi**
+10. **Test fastapi**
 
    - add `__init__.py` in the repo root --> addresses import issues
    - create `tests/` folder to contain all test files
@@ -81,17 +81,26 @@ This repo definitely doesn't cover all features of fastapi but contains **go to 
    - pytest using `fastapi.TestClient`
      - follow `test_myapi.py`
 
-# Yet to be added
+# Let's get ADVANCED!
 
-- Multifile app route code
-- Exception handle (custom class)
-  - create a 8 digit pass constraints, if invoked throw exception
-  - user exists then custom exception throw
-  - request header read (depends, dependency)
-- fastapi authentication
-- use of cookiecutter (check for fastapi)
-- test for fastapi
-- custom decorator and concept: collect response time
+   If hungry for more: to get habituted with industry standard and good practices of `fastapi`+`pydantic`+`loguru`+`pytest` on how to build+structure+organize from scratch dive into this repo: <a href="https://github.com/Ahnaf19/hotel_transylvania">**Hotel Transylvania**</a>! Its a hotel management system that can handle guest and room CRUD operations. 
+
+   > its an on going project at the moment, so expect some services to be finished soon. [30 Jan, 2025]
+   
+   This repo includes:
+
+   - API for guests and rooms which is kinda fast --> `fastAPI`
+   - Clean & modular repo structure
+      - separate application and tests directory
+      - clean module/package initiation at each submodule
+      - modular structure for required data, schemas, services and routers
+   - Clean application
+      - Added multiple modular routers to the main
+      - can be switched to any other framework easily
+   - Use of custom Exception
+   - Logging using `loguru`: what a library!
+   - `pytest` for unit testing
+   - Of course, `github actions` to automate testing (CI)
 
 # Let’s Connect
 
