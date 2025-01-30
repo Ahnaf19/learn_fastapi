@@ -36,6 +36,7 @@ This repo definitely doesn't cover all features of fastapi but contains **go to 
    - learn how to initiate fastapi application
    - api endpoints or routers
    - CRUD with GET, POST, PUT, DELETE
+   - Data validation with pydantic
    - parameters
      - path parameters
      - query parameters
