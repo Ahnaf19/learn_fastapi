@@ -4,3 +4,4 @@ pydantic[email]
 passlib[bcrypt]
 pytest
 httpx
+loguru
