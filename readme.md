@@ -1,107 +1,147 @@
-# learn_fastapi
+# learn_fastapi — Intern Teaching Kit
 
-This repository is dedicated to learning and practicing FastAPI, a powerful web framework for Python. Thanks to this <a href="https://www.youtube.com/watch?v=tLKKmouUams">YouTube video</a>, I was introduced to FastAPI and am already feeling empowered while building APIs!
+A structured, runnable teaching kit for learning FastAPI from scratch.
+Aligned with the **"Get Faster with FastAPI"** guide (see `docs/`).
 
-This repo definitely doesn't cover all features of fastapi but contains **go to fundamentals** for getting started with fastapi. Following steps outline the key concepts and features can be considered as the learning path at beginner level, referring `learn_fastapi.ipynb` and `myapi.py`:
+---
 
-## Learning Steps
+## Quick Start
 
-1. **fastapi Documentation**
+This project uses **[uv](https://docs.astral.sh/uv/)** for dependency and environment management.
 
-   The <a href="https://fastapi.tiangolo.com/learn/">official fastapi documentation</a> is the best. Solely following it step by step would be enough for anyone. Really, just try it.
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-   1.1. **Concurrency + Parallelism ==> Web + Machine Learning **
+# Install all dependencies and create .venv automatically
+uv sync
 
-   Read and summarized from <a href="https://fastapi.tiangolo.com/async/">fastapi async</a>:
-   
-   - `concurrency`: The ability to manage multiple tasks at the same time by quickly switching between them. In FastAPI, this is achieved using asynchronous programming (`async/await`), enabling efficient handling of I/O-bound operations like database queries or API calls without blocking the main thread.
-   - `parallelism`: Running multiple tasks simultaneously on different CPU cores. In Python, libraries like multiprocessing or frameworks like FastAPI with workers (e.g., using `gunicorn` with multiple workers) enable parallel execution, which is particularly useful for `CPU-bound` tasks.
-      `multiprocessing`: A technique to create separate processes (not threads) to run tasks in parallel, utilizing multiple CPU cores. This is effective for `CPU-bound` tasks in Python, bypassing the Global Interpreter Lock (`GIL`). For FastAPI, multiprocessing can help with heavy computation tasks by delegating them to worker processes.
-   - `CPU bound`: A type of task that is limited by the speed of the CPU, such as mathematical computations or data processing. In FastAPI, CPU-bound tasks are better handled using multiprocessing or external workers (e.g., `celery` or `background tasks`) to prevent slowing down the main application thread.
+# Run any numbered teaching file (from project root)
+uv run uvicorn learn.01_hello_world:app --reload
 
-3. **Installation**:
+# Run the structured demo app
+uv run uvicorn app.main:app --reload
 
-   Need to install `fastapi` library and also need `uvicorn` to run local server. For data validation, `pydantic` is superb which comes preinstalled with fastapi.
+# Run all tests
+uv run pytest tests/ -v
+```
 
-   - `pip install fastapi uvicorn`
+Then open **http://127.0.0.1:8000/docs** for interactive Swagger UI.
 
-4. **Folder Structure**
+> The `.venv` is created and managed by `uv` — do not create it manually.
 
-   (not dived much into it yet)
+---
 
-   Depending on the project, it might be a good idea to have separate files for routing, database connection, models and schemas. Its been thoroughly implemented in the <a href="https://github.com/Ahnaf19/hotel_transylvania">**Hotel Transylvania**</a> repo!
+## Starter Kit Learning Path
 
-5. **Basics**:
+Step through the numbered files in `learn/` in order. Each builds on the previous.
+All commands run from the **project root**.
 
-   - learn how to initiate `fastapi` application
-   - api endpoints or routers
-   - CRUD with GET, POST, PUT, DELETE
-   - Data validation with pydantic
-   - parameters
-     - path parameters
-     - query parameters
-   - request body
-   - response model
+| File | Concept | Run Command |
+|------|---------|-------------|
+| `learn/01_hello_world.py` | FastAPI app, first endpoint, auto docs (`/docs`, `/redoc`) | `uv run uvicorn learn.01_hello_world:app --reload` |
+| `learn/02_path_params.py` | Path parameters, `Path()` validation, `HTTPException` | `uv run uvicorn learn.02_path_params:app --reload` |
+| `learn/03_query_params.py` | Query parameters, `Query()`, `Optional`, filters + pagination | `uv run uvicorn learn.03_query_params:app --reload` |
+| `learn/04_request_body.py` | Pydantic `BaseModel`, POST/PUT/PATCH, `model_dump()`, `exclude_unset` | `uv run uvicorn learn.04_request_body:app --reload` |
+| `learn/05_pydantic_field.py` | `Field()` constraints, `EmailStr`, nested models, Swagger examples | `uv run uvicorn learn.05_pydantic_field:app --reload` |
+| `learn/06_response_status.py` | `response_model`, status codes, Create/Update/Out schema pattern | `uv run uvicorn learn.06_response_status:app --reload` |
+| `learn/07_crud_all_in_one.py` | Full CRUD — all best practices combined in one file | `uv run uvicorn learn.07_crud_all_in_one:app --reload` |
 
-6. **Run Uvicorn Server**:
+---
 
-   - command to run the app through uvicorn: `uvicorn myapi:app --reload`
-     - `myapi` is the name of the py file
-     - `app` is the name of the instance of FASTAPI class
-     - `reload` flag enables auto reload when changed and saved
+## Structured App Demo (`app/`)
 
-7. **Auto Generated API Docs**:
+A modular, production-style FastAPI application with **Users** and **Orders** CRUD.
 
-   - learn the most awesome thing of fastapi, the auto generated api documentation
-     - swagger UI
-     - docly
+```bash
+uv run uvicorn app.main:app --reload
+```
 
-8. **CRUD**:
+### What it demonstrates
 
-   - dive into the depth of CRUD with GET, POST, PUT, DELETE
-   - How to validate data with pydantic models
+| Concept | Where |
+|---------|-------|
+| `APIRouter` with `prefix` + `tags` | `app/routers/users.py`, `app/routers/orders.py` |
+| `include_router` to compose the app | `app/main.py` |
+| `Depends()` for pagination | `app/dependencies.py` → used in both routers |
+| `Depends()` for get-or-404 | `app/dependencies.py` → `get_user_or_404` |
+| Separate `schemas/` directory | `app/schemas/user.py`, `app/schemas/order.py` |
+| `Field()` constraints + `EmailStr` | `app/schemas/user.py` |
+| In-memory fake DB | `app/db/fake_db.py` |
+| Cross-resource validation | `app/routers/orders.py` (user must exist) |
+| Full CRUD with proper status codes | Both routers |
 
-9. **Useful Libraries/approaches/validations**:
+### App structure
 
-   - `fastapi`
-     - HTTPException (raising HTTP exception/error)
-   - `pydantic`
-     - `basemodel`
-     - `EmailStr`
-     - `validator` (decorator for custom validation)
-     - json serialization [`.json()` to json, `.model_dump()` to dict, `.parse_raw()` to pydantic]
-   - `uuid`
-     - UUID and uuid4 (generate unique id)
+```
+app/
+├── __init__.py
+├── main.py               # FastAPI instance + include_router
+├── dependencies.py       # Shared Depends(): pagination, get_user_or_404
+├── db/
+│   └── fake_db.py        # In-memory dicts (users_db, orders_db)
+├── schemas/
+│   ├── user.py           # UserCreate, UserUpdate, UserOut
+│   └── order.py          # OrderCreate, OrderUpdate, OrderOut
+├── routers/
+│   ├── users.py          # /users  — full CRUD
+│   └── orders.py         # /orders — full CRUD
+└── utils/
+    └── helpers.py        # next_id() helper
+```
 
-10. **Test fastapi**
+---
 
-   - add `__init__.py` in the repo root --> addresses import issues
-   - create `tests/` folder to contain all test files
-   - add `__init__.py` in the `tests/` folder as well --> pytest can easily detect test files
-   - pytest using `fastapi.TestClient`
-     - follow `test_myapi.py`
+## Tests
 
-# Let's get ADVANCED!
+```bash
+uv run pytest tests/ -v
+```
 
-   If hungry for more: to get habituted with industry standard and good practices of `fastapi`+`pydantic`+`loguru`+`pytest` on how to build+structure+organize from scratch dive into this repo: <a href="https://github.com/Ahnaf19/hotel_transylvania">**Hotel Transylvania**</a>! Its a hotel management system that can handle guest and room CRUD operations. 
+| File | Tests |
+|------|-------|
+| `tests/test_myapi.py` | Original student API (reference) |
+| `tests/test_app.py`   | Structured app — Users + Orders full coverage |
 
-   > its an on going project at the moment, so expect some services to be finished soon. [30 Jan, 2025]
-   
-   This repo includes:
+---
 
-   - API for guests and rooms which is kinda fast --> `fastAPI`
-   - Clean & modular repo structure
-      - separate application and tests directory
-      - clean module/package initiation at each submodule
-      - modular structure for required data, schemas, services and routers
-   - Clean application
-      - Added multiple modular routers to the main
-      - can be switched to any other framework easily
-   - Use of custom Exception
-   - Logging using `loguru`: what a library!
-   - `pytest` for unit testing
-   - Of course, `github actions` to automate testing (CI)
+## uv Cheatsheet
 
-# Let’s Connect
+| Task | Command |
+|------|---------|
+| Install / sync all deps | `uv sync` |
+| Run tests | `uv run pytest tests/ -v` |
+| Run the demo app | `uv run uvicorn app.main:app --reload` |
+| Run a teaching file | `uv run uvicorn learn.01_hello_world:app --reload` |
+| Add a dependency | `uv add <package>` |
+| Add a dev dependency | `uv add --dev <package>` |
+| Remove a dependency | `uv remove <package>` |
+| Show installed packages | `uv pip list` |
 
-If you're passionate about testing or Python development, let’s discuss ideas and experiences. Feedback, forks, and collaboration requests are always welcome!
+---
+
+## Reference
+
+- `pyproject.toml` — project manifest and dependency declaration (uv)
+- `uv.lock` — exact lockfile for reproducible installs
+- `myapi.py` — original student CRUD (kept as reference)
+- `docs/Fast API_ Beginner to Intermediate Guide.pdf` — the companion guide
+- FastAPI official docs: https://fastapi.tiangolo.com
+
+---
+
+## Road to Glory — What's Next?
+
+After the Starter Kit, explore these advanced topics:
+
+- **Get Modular** — `APIRouter`, bigger app structure (done in `app/`)
+- **DB Connection** — SQLAlchemy / Tortoise ORM (`app/db/db_session.py`)
+- **Dependencies** — auth, DB sessions, rate limiting (see `app/dependencies.py`)
+- **Middleware** — CORS, logging, timing
+- **Security** — OAuth2, JWT, `passlib`
+- **Lifespan Events** — startup/shutdown hooks
+- **Background Tasks** — `BackgroundTasks`
+- **Custom Exception Handling** — global exception handlers
+- **Testing & CI** — `pytest` + GitHub Actions
+
+> GOAT of all resources: [FastAPI Official Documentation](https://fastapi.tiangolo.com)

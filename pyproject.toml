@@ -1,0 +1,22 @@
+[project]
+name = "learn-fastapi"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.129.0",
+    "loguru>=0.7.3",
+    "passlib[bcrypt]>=1.7.4",
+    "pydantic[email]>=2.12.5",
+    "uvicorn>=0.40.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.0.2",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
