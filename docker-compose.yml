@@ -1,0 +1,35 @@
+# ============================================================
+# Docker Compose — Demo API (app/)
+# ============================================================
+# Dev mode (hot reload):  docker compose up
+# Rebuild after changes:  docker compose up --build
+# Stop:                   docker compose down
+# ============================================================
+
+services:
+  api:
+    build:
+      context: .          # build context = project root
+      dockerfile: Dockerfile
+    container_name: demo-api
+    ports:
+      - "8000:8000"       # host:container — visit http://localhost:8000/docs
+
+    # ── Development: mount code for hot reload ──────────────
+    # Changes to app/ on your machine reflect inside the
+    # container immediately (no rebuild needed).
+    volumes:
+      - ./app:/app/app
+
+    # ── Override CMD for dev: add --reload ──────────────────
+    command: >
+      uvicorn app.main:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+
+    # ── Environment variables ───────────────────────────────
+    # Add app config here (DB URLs, secrets, etc. in production
+    # these come from a .env file or secrets manager)
+    environment:
+      - APP_ENV=development

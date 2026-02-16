@@ -1,0 +1,23 @@
+# ── Python ────────────────────────────────────────────────
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# ── Teaching files (not needed in the image) ──────────────
+learn/
+myapi.py
+learn_fastapi.ipynb
+
+# ── Tests ─────────────────────────────────────────────────
+tests/
+
+# ── Docs / config ─────────────────────────────────────────
+docs/
+*.md
+*.txt
+
+# ── Version control ───────────────────────────────────────
+.git/
+.gitignore

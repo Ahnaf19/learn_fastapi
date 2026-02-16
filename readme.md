@@ -92,6 +92,37 @@ app/
 
 ---
 
+## Docker (`app/` only)
+
+The `app/` service is fully containerized using the official uv Docker image.
+
+```bash
+# Build the image
+docker build -t demo-api .
+
+# Run (production mode, no reload)
+docker run -p 8000:8000 demo-api
+
+# Dev mode with hot reload (mounts ./app into the container)
+docker compose up
+
+# Rebuild after dependency changes
+docker compose up --build
+
+# Stop and remove containers
+docker compose down
+```
+
+Visit **http://localhost:8000/docs** after starting.
+
+| File | Purpose |
+|------|---------|
+| `Dockerfile` | Image definition — uv base, prod deps only, `app/` copied in |
+| `docker-compose.yml` | Dev setup — volume mount + `--reload` + env vars |
+| `.dockerignore` | Excludes `learn/`, `tests/`, `.venv`, notebooks from build context |
+
+---
+
 ## Tests
 
 ```bash
